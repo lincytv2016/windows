@@ -109,7 +109,7 @@ for j in response1['Items']:
 
         ## Declaring ssm RunCommand
         for member in final_list:
-            try:
+            
                 print member
                 ssm = boto3.client('ssm', aws_access_key_id=access_key,aws_secret_access_key=secret_key,aws_session_token=session_token,region_name='us-west-2')
                 testCommand = ssm.send_command( InstanceIds=[member], DocumentName='AWS-RunShellScript', Comment='Testing the boto3 cmd', Parameters={ "commands":[ "service awslogs status" ]  } )
@@ -120,9 +120,8 @@ for j in response1['Items']:
                     InstanceId=member
                 )
                 command_status()
-            except:
-                pass
 
+                
         print failed_id_list
         ec2_describe = boto3.client('ec2', aws_access_key_id=access_key,aws_secret_access_key=secret_key,aws_session_token=session_token,region_name='us-west-2')
         Tags = []
