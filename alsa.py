@@ -149,14 +149,11 @@ for j in response1['Items']:
                 ## Converting the lists into Table which supports HTML
                  table_list = ['Instance_name', 'Instance_id', 'VPC_id', 'Private_IP', 'Subnet_id', 'Availability_zone',servicename]
                  html = '<table border="1" style="width:15%"><tr><th>' + '</th><th>'.join(table_list) + '</th></tr>'
-
                  for row in zip(instance_name, failed_id_list ,vpc_id, private_ip, subnet_id, Availability_zone, Service_Name):
                  #   print '\t'.join(row)
                      html +=  '<tr><td>' + '</td><td>'.join(row) + '</td></tr>'
                      html += '</table>'
                      print html
-
-
                 ## Sending EMAIL using SES
                 client1 = boto3.client('ses', aws_access_key_id=access_key,aws_secret_access_key=secret_key,aws_session_token=session_token,region_name='us-west-2')
                 response = client1.send_email(Source=emailaddress,Destination={'ToAddresses': [emailaddress], 'CcAddresses': [ccaddr]},Message={'Subject': {'Data': subject}, 'Body': {'Html': {'Data': html}}}, ReplyToAddresses=['alsa.thuruthel@reancloud.com'])
