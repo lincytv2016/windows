@@ -145,6 +145,7 @@ for client in response1['Items']:
                         testCommand = ssm.send_command( InstanceIds=[member], DocumentName='AWS-RunShellScript', Comment='Testing the boto3 cmd', Parameters={ "commands":[ command ]  } )
                         Command_id = (testCommand['Command']['CommandId'])
                         print Command_id
+                        time.sleep(30)
                         response = ssm.get_command_invocation(
                             CommandId=Command_id,
                             InstanceId=member
